@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-09-2024 a las 00:38:21
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 12-09-2024 a las 15:03:51
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pedidos`
+-- Estructura de tabla para la tabla `pedido`
 --
 
-CREATE TABLE `pedidos` (
+CREATE TABLE `pedido` (
   `id` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
   `cantidad_productos` int(11) NOT NULL,
@@ -36,10 +36,10 @@ CREATE TABLE `pedidos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `pedidos`
+-- Volcado de datos para la tabla `pedido`
 --
 
-INSERT INTO `pedidos` (`id`, `id_producto`, `cantidad_productos`, `total`, `fecha`) VALUES
+INSERT INTO `pedido` (`id`, `id_producto`, `cantidad_productos`, `total`, `fecha`) VALUES
 (1, 1, 2, 4000, '2024-09-11'),
 (3, 2, 1, 3000, '2024-09-19'),
 (6, 5, 3, 1500, '2024-09-12');
@@ -71,9 +71,9 @@ INSERT INTO `producto` (`id`, `nombre`, `precio`, `descripcion`) VALUES
 --
 
 --
--- Indices de la tabla `pedidos`
+-- Indices de la tabla `pedido`
 --
-ALTER TABLE `pedidos`
+ALTER TABLE `pedido`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id` (`id_producto`);
 
@@ -88,9 +88,9 @@ ALTER TABLE `producto`
 --
 
 --
--- AUTO_INCREMENT de la tabla `pedidos`
+-- AUTO_INCREMENT de la tabla `pedido`
 --
-ALTER TABLE `pedidos`
+ALTER TABLE `pedido`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
@@ -104,10 +104,10 @@ ALTER TABLE `producto`
 --
 
 --
--- Filtros para la tabla `pedidos`
+-- Filtros para la tabla `pedido`
 --
-ALTER TABLE `pedidos`
-  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`);
+ALTER TABLE `pedido`
+  ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
