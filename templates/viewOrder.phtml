@@ -1,0 +1,27 @@
+<?php require './templates/layout/header.phtml' ?>
+<div class="container overflow-hidden text-center">
+    <div class="card text-center">
+        <div class="card-header">
+            Orden N° : <?php echo $order->id ?>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Producto: <?php echo  $product->name ?></h5>
+            <p class="card-text">Fecha: <?php echo$order->date ?></p>
+            <p class="card-text">Total: <?php echo$order->total ?></p>
+            <p class="card-text">Cantidad producto: <?php echo$order->cant_products ?></p>
+            <p class="card-text">Descripcion: <?php echo $product->description ?></p>
+           
+        </div>
+        <div class="card-footer text-body-secondary">
+             <a href="<?php BASE_URL ?>" class="btn btn-primary">Volver</a>
+        </div>
+    </div>
+</div>
+<!-- echo "<ul>
+        <li>Orden n° $order->id</li>
+        <li>Fecha $order->date</li>
+        <li>Total: $order->total</li>
+        <li>Cantidad: $order->cant_products</li>
+        <li>Producto: $product->name</li>
+        </ul>"; -->
+<?php require './templates/layout/footer.phtml' ?>
