@@ -26,14 +26,14 @@ class ProductsController
             $redir = 'categorias';
             $ordersError->showError($error, $redir);
         } else {
-            $items = $this->model->getOrdersByProductId($id_product);
-            
-            if (count($items) === 0) {
+            $orders = $this->model->getOrdersByProductId($id_product);
+            $product=$this->model->getProduct($id_product);
+            if (count($orders) === 0) {
                 $error = "No hay órdenes para este producto";
                 $redir = "categorias";
                 $ordersError->showError($error, $redir);
             } else {
-                $this->view->showOrdersById($items);
+                $this->view->showOrdersById($orders,$product);
             }
         }
     }

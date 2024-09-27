@@ -1,9 +1,9 @@
 <?php require './templates/layout/header.phtml'
 ?>
 <div class="container mt-5">
-    <h2 class="mb-4">Órdenes para el Producto</h2>
+    <h2 class="mb-4">Órdenes para el Producto: <?= $product->name ?></h2>
     <ul class="list-group">
-        <?php foreach ($items as $order) { ?>
+        <?php foreach ($orders as $order) { ?>
             <li class="list-group-item mb-3 shadow-sm p-3 rounded">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>

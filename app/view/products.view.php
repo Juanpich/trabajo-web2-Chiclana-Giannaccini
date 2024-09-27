@@ -7,7 +7,7 @@ class ProductsView{
         require_once './templates/listProducts.phtml';
     }
 
-    public function showOrdersById($items) {
+    public function showOrdersById($orders,$product) {
         require_once './templates/viewItems.phtml';
        
     }
