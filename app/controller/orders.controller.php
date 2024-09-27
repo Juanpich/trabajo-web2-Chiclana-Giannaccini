@@ -26,7 +26,9 @@ class OrdersControlers{
             }
             
         }else{
-            $this->view->error("no existe la orden y/o producto");
+            $error="No existe la orden y/o producto";
+            $redir="home";
+            $this->view->showError($error,$redir);
         }
     }
 }

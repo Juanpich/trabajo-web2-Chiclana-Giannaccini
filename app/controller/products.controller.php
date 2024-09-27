@@ -19,16 +19,22 @@ class ProductsController
     }
 
     public function viewItemByCategories($id_product){
-        $items = $this->model->getOrdersByProductId($id_product);
-        if (!$items) {
-            echo "Esta categoria no existe"; //sacarlo a una funcion errores
-            //$error= "<h1> Esta categoria no existe </h1>";
-            //$redirigir='categorias';
-            //return $this->view->showError($error,$redirigir);
-        } elseif (count($items) === 0) {
-            echo "No hay ordenes para este producto";
+        $productExists = $this->model->checkIDExists($id_product);
+        $ordersError = new OrdersView();
+        if (!$productExists) {
+            $error = "Esta categoría no existe";
+            $redir = 'categorias';
+            $ordersError->showError($error, $redir);
         } else {
-            $this->view->showOrdersById($items);
+            $items = $this->model->getOrdersByProductId($id_product);
+            
+            if (count($items) === 0) {
+                $error = "No hay órdenes para este producto";
+                $redir = "categorias";
+                $ordersError->showError($error, $redir);
+            } else {
+                $this->view->showOrdersById($items);
+            }
         }
     }
 }

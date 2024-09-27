@@ -1,6 +1,7 @@
 <?php
 require_once './app/controller/products.controller.php';
 require_once './app/controller/orders.controller.php';
+require_once './app/view/orders.view.php';
 
 //faltaba agregar
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
@@ -32,12 +33,10 @@ switch($params[0]){
         $controller->viewItemByCategories($params[1]);
         break;    
 
-    default:
-    //ACA SE PUEDE AGREGAR FUNCION error:
-    /*default:
-        $controler = new OrdersController();
-        $controler->showError();
-        break;*/
-        echo "pag no encontrada";
+        default:
+        $view = new OrdersView();
+        $error="404 page not found";
+        $redir="home";
+        $controler->showError($error,$redir);
         break;
 }

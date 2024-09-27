@@ -26,10 +26,9 @@ class ProductsModel
         return $query->fetch(PDO::FETCH_OBJ);
     }
 
-    //ESTA FUNCION NO LA USO
-    public function checkIDExists($id){
+    public function checkIDExists($id_product){
         $query = $this->db->prepare("SELECT * FROM product WHERE id = ?");
-        $result = $query->execute([$id]);
+        $result = $query->execute([$id_product]);
         return $query->fetchColumn() > 0;
     }
 
