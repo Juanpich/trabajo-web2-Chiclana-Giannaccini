@@ -37,4 +37,38 @@ class ProductsController
             }
         }
     }
+
+         //ABM
+         public function ProductsABM(){
+            $products = $this->model->getProducts();
+            $this->view->seeABMProducts($products);
+}
+
+
+/* public function showSelectABM(){
+    if(!isset($_POST['operation']) || empty($_POST['operation'])){
+        $error = "Seleccione una opcion";
+        $redir = "controlarProductos";
+        $controller = new ErrorControler();
+        $controller->showError($error, $redir);
+        return;
+    }
+
+    
+    $action = $_POST['operation'];
+    switch($action){
+        case 'create':
+
+            break;
+        case 'update':  
+
+            break;
+        case 'delete':
+
+            break;
+        default:
+        break;    
+        }  
+    }*/
+
 }

@@ -39,6 +39,10 @@ switch($params[0]){
     case 'ABMOrdenes':
         $controler = new OrdersControlers();
         $controler->showSelectABM();    
+    case 'controlarProductos':
+        $controller = new ProductsController();
+        $controller->productsABM();
+
     default:
         $error="404 page not found";
         $redir="home";
