@@ -42,7 +42,7 @@ switch($params[0]){
     case 'controlarProductos':
         $controller = new ProductsController();
         $controller->productsABM();
-
+        break;
     default:
         $error="404 page not found";
         $redir="home";
