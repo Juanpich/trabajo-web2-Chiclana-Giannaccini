@@ -1,7 +1,7 @@
 <?php
 require_once './app/model/products.model.php';
 require_once './app/view/products.view.php';
-require_once './app/view/orders.view.php';
+require_once './app/controller/error.controller.php';
 
 class ProductsController
 {
@@ -20,7 +20,7 @@ class ProductsController
 
     public function viewItemByCategories($id_product){
         $productExists = $this->model->checkIDExists($id_product);
-        $ordersError = new OrdersView();
+        $ordersError = new ErrorControler();
         if (!$productExists) {
             $error = "Esta categoría no existe";
             $redir = 'categorias';

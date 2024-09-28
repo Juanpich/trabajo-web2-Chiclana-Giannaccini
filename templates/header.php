@@ -27,5 +27,6 @@
             </div>
             </nav>
     </header>
+    <?php require './templates/layout/footer.phtml'; ?>
 
  

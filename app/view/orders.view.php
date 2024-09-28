@@ -10,8 +10,9 @@ class OrdersView{
         require_once './templates/viewOrder.phtml';
     }
 
-    public function showError($error,$redir){
-        require_once './templates/error.phtml';
+    public function seeABMOrders($elements){
+        $items = "orden";
+        require_once './templates/CRUD.phtml';
     }
 }
 

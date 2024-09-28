@@ -1,7 +1,7 @@
 <?php
 require_once './app/controller/products.controller.php';
 require_once './app/controller/orders.controller.php';
-require_once './app/view/orders.view.php';
+require_once './app/controller/error.controller.php';
 
 //faltaba agregar
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
@@ -15,7 +15,7 @@ $params = explode('/', $action);
 
 switch($params[0]){
     case 'home':
-        $controller=new OrdersControlers;//cambiar a controller
+        $controller=new OrdersControlers;
         $controller->showHome();
         break;  
     case 'verOrden':
@@ -32,11 +32,17 @@ switch($params[0]){
         $controller = new ProductsController();
         $controller->viewItemByCategories($params[1]);
         break;    
-
-        default:
-        $view = new OrdersView();
+    case 'controlarOrdenes':
+        $controller = new OrdersControlers();
+        $controller-> OrdersABM();
+        break;
+    case 'ABMOrdenes':
+        $controler = new OrdersControlers();
+        $controler->showSelectABM();    
+    default:
         $error="404 page not found";
         $redir="home";
+        $controler = new ErrorControler();
         $controler->showError($error,$redir);
         break;
 }

@@ -1,0 +1,38 @@
+<?php 
+require_once './templates/layout/header.phtml';
+?>
+<!-- L variable items contiene el nombre del item -->
+<div class="container overflow-hidden text-center">
+    <h2><?php echo strtoupper($items) ?></h2>
+    <h3>Seleccione la operacion que desea realizar</h3>
+    <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">N° Orden</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Modificar</th>
+        <th scope="col">Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+    <?php foreach($elements as $element) :?>
+      <tr>
+        <th scope="row"><?php echo$element->id?></th>
+        <td><?php echo $element->date ?></td>
+        <td><?php echo $element->cant_products ?></td>
+        <td><?php echo $element->total ?></td>
+        <td><button type="button" class="btn btn-success"><a href="<?php echo BASE_URL ?>modificar/<?php echo $element->id ?>">Modificar</a></button></td>
+        <td><button type="button" class="btn btn-danger"></button></td>
+      </tr>
+    <?php endforeach ?>
+    </tbody>
+  </table>
+
+
+    
+</div>
+<?php 
+require_once './templates/layout/footer.phtml';
+?>

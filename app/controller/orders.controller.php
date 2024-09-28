@@ -2,6 +2,7 @@
 require_once './app/model/orders.model.php';
 require_once './app/view/orders.view.php';
 require_once './app/model/products.model.php';
+require_once './app/controller/error.controller.php';
 class OrdersControlers{
     private $view;
     private $model;
@@ -28,7 +29,36 @@ class OrdersControlers{
         }else{
             $error="No existe la orden y/o producto";
             $redir="home";
-            $this->view->showError($error,$redir);
+            $controllerError = new ErrorControler();
+            $controllerError->showError($error,$redir);
         }
+    }
+    public function OrdersABM(){
+        $elements = $this->model->getOrders();
+        $this->view->seeABMOrders($elements);
+    }
+    public function showSelectABM(){
+        if(!isset($_POST['operation']) || empty($_POST['operation'])){
+            $error = "Seleccione una opcion";
+            $redir = "controlarOrdenes";
+            $controller = new ErrorControler();
+            $controller->showError($error, $redir);
+            return;
+        }
+        $action = $_POST['operation'];
+        switch($action){
+            case 'create':
+
+                break;
+            case 'update':  
+
+                break;
+            case 'delete':
+
+                break;
+            default:
+            break;      
+        }
+
     }
 }
