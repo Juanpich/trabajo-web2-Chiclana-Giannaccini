@@ -6,20 +6,20 @@ require_once './app/controller/error.controller.php';
 //faltaba agregar
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
-if(isset($_GET['action']) && !empty($_GET['action'])){
+if (isset($_GET['action']) && !empty($_GET['action'])) {
     $action = $_GET['action'];
-}else{
+} else {
     $action = 'home';
 }
 $params = explode('/', $action);
 
-switch($params[0]){
+switch ($params[0]) {
     case 'home':
-        $controller=new OrdersControlers;
+        $controller = new OrdersControlers;
         $controller->showHome();
-        break;  
+        break;
     case 'verOrden':
-        $controller=new OrdersControlers;
+        $controller = new OrdersControlers;
         $controller->viewOrder($params[1]);
         break;
 
@@ -31,22 +31,37 @@ switch($params[0]){
     case 'itemCategoria':
         $controller = new ProductsController();
         $controller->viewItemByCategories($params[1]);
-        break;    
+        break;
     case 'controlarOrdenes':
         $controller = new OrdersControlers();
-        $controller-> OrdersABM();
+        $controller->OrdersABM();
         break;
     case 'ABMOrdenes':
         $controler = new OrdersControlers();
-        $controler->showSelectABM();    
+        $controler->showSelectABM();
+
+        //ABM 
     case 'controlarProductos':
         $controller = new ProductsController();
         $controller->productsABM();
         break;
+    case 'nuevoProducto':
+        $controler = new ProductsController();
+        $controler->addProduct();
+        break;
+        /*   case 'eliminarProducto':
+            $controler=new ProductsController();
+            $controler->deleteProduct($params[1]);
+            break;
+         case 'modificarProducto':
+          $controler=new ProductsController();
+             $controler->modifyProduct($params[1]);
+             break; */
+
     default:
-        $error="404 page not found";
-        $redir="home";
+        $error = "404 page not found";
+        $redir = "home";
         $controler = new ErrorControler();
-        $controler->showError($error,$redir);
+        $controler->showError($error, $redir);
         break;
 }

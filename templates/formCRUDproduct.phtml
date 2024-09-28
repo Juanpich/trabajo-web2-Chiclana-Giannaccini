@@ -1,0 +1,37 @@
+<?php 
+require_once './templates/layout/header.phtml';
+?>
+
+<div class="container my-5 p-4 shadow-sm bg-light rounded">
+    <h2 class="text-center text-black mb-4">Agregar nuevo producto</h2>
+
+    <form action="nuevoProducto" method="POST">
+        <div class="row mb-3">
+            <div class="col-md-9">
+                <div class="form-floating">
+                    <input name="name" type="text" class="form-control" id="nameInput" placeholder="Nombre del producto" required>
+                    <label for="nameInput">Nombre del producto</label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-floating">
+                    <input required name="price" type="number" step="0.01" class="form-control" id="priceInput" placeholder="Precio">
+                    <label for="priceInput">Precio</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <textarea name="description" class="form-control" placeholder="Descripción" id="descriptionInput" style="height: 100px" required></textarea>
+            <label for="descriptionInput">Descripción</label>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+        </div>
+    </form>
+</div>
+
+<?php 
+require_once './templates/layout/footer.phtml';
+?>

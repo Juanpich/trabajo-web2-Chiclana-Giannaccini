@@ -38,6 +38,14 @@ class ProductsModel
         $orders = $query->fetchAll(PDO::FETCH_OBJ);
         return $orders;
     }
+
+    public function insertProduct($name, $price, $description)
+    {
+        $query = $this->db->prepare('INSERT INTO product(name,price,description) VALUES (?, ?, ?)');
+        $query->execute([$name,$price, $description]);
+        $id = $this->db->lastInsertId();
+        return $id;
+    }
     // private function _deploy() {
     //     $query = $this->db->query("SHOW TABLES LIKE 'product'");
     //     $tables = $query->fetchAll();
