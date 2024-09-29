@@ -23,4 +23,10 @@ class ProductsView
     {
         require_once './templates/formCRUDproduct.phtml';
     }
+
+    public function showProductForm($product = null, $isEdit = false)
+    {
+        require_once './templates/formCRUDproduct.phtml';
+    }
+
 }

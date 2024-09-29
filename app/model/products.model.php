@@ -39,19 +39,26 @@ class ProductsModel
         return $orders;
     }
 
-    public function insertProduct($name, $price, $description)
-    {
+    //ABM
+    public function insertProduct($name, $price, $description){
         $query = $this->db->prepare('INSERT INTO product(name,price,description) VALUES (?, ?, ?)');
         $query->execute([$name,$price, $description]);
         $id = $this->db->lastInsertId();
         return $id;
     }
 
-    public function eraseProduct($id)
-    {
+    public function eraseProduct($id){
         $query = $this->db->prepare('DELETE FROM product WHERE id = ?');
         $query->execute([$id]);
     }
+
+    public function updateProduct($id, $name, $price, $description) {
+        // Preparamos la consulta de actualización
+        $query = $this->db->prepare('UPDATE product SET name = ?, price = ?, description = ? WHERE id = ?');
+        $query->execute([$name, $price, $description,$id]);
+                return true; 
+     } 
+}
     // private function _deploy() {
     //     $query = $this->db->query("SHOW TABLES LIKE 'product'");
     //     $tables = $query->fetchAll();
@@ -68,4 +75,4 @@ class ProductsModel
     //         SQL;
     //     $this->db->query($sql);
     //     }
-}
+

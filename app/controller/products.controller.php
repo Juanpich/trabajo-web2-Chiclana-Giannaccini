@@ -7,11 +7,13 @@ class ProductsController
 {
     private $view;
     private $model;
+    private $error;
 
     public function __construct()
     {
         $this->view = new ProductsView();
         $this->model = new ProductsModel();
+        $this->error = new ErrorControler();
     }
 
     public function showCategories()
@@ -23,18 +25,17 @@ class ProductsController
     public function viewItemByCategories($id_product)
     {
         $productExists = $this->model->checkIDExists($id_product);
-        $ordersError = new ErrorControler();
         if (!$productExists) {
             $error = "Esta categoría no existe";
             $redir = 'categorias';
-            $ordersError->showError($error, $redir);
+            $this->error->showError($error, $redir);
         } else {
             $orders = $this->model->getOrdersByProductId($id_product);
             $product = $this->model->getProduct($id_product);
             if (count($orders) === 0) {
                 $error = "No hay órdenes para este producto";
                 $redir = "categorias";
-                $ordersError->showError($error, $redir);
+                $this->error->showError($error, $redir);
             } else {
                 $this->view->showOrdersById($orders, $product);
             }
@@ -47,41 +48,77 @@ class ProductsController
         $this->view->seeABMProducts($products);
     }
 
-    public function addProduct(){
+    public function addProduct()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') { //si se envia el formulario se procesa
-            if (
-                !isset($_POST['name']) || empty($_POST['name']) ||
-                !isset($_POST['price']) || empty($_POST['price']) ||
-                !isset($_POST['description']) || empty($_POST['description'])
-            ) {
-                $error = "<h1>Error: completar todos los campos</h1>";
-                $redir = "controlarProducto";
-                $controllerError = new ErrorControler();
-                $controllerError->showError($error, $redir);
+            $productData = $this->getValidatedProductData();
+            if (!$productData) {
+                $error = "Error: completar todos los campos";
+                $redir = "controlarProductos";
+                $this->error->showError($error, $redir);
             } else {
-                $name = $_POST['name'];
-                $price = $_POST['price'];
-                $description = $_POST['description'];
-
-                $id = $this->model->insertProduct($name, $price, $description);
+                $id = $this->model->insertProduct($productData['name'], $productData['price'], $productData['description']);
                 header("Location: " . BASE_URL . "controlarProductos");
                 exit();
             }
         } else {
-            $this->view->addProduct();//si no se envió el formulario se muestra
+            $this->view->addProduct(); //si no se envió el formulario se muestra
         }
     }
 
-    public function deleteProduct($id) {
+    public function deleteProduct($id)
+    {
         $product = $this->model->getProduct($id);
         if (!$product) {
-            $error= "<h1>No existe el rpoducto con el id=$id</h1>";
-            $redir = "controlarProducto";
-            $controllerError = new ErrorControler();
-            $controllerError->showError($error, $redir);
+            $error = "No existe el rpoducto con el id=$id";
+            $redir = "controlarProductos";
+            $this->error->showError($error, $redir);
         }
-        $this->model->eraseProduct($id);//agregar mensaje de info. eliminado con exito
+        $this->model->eraseProduct($id); //agregar mensaje de info. eliminado con exito
         header("Location: " . BASE_URL . "controlarProductos");
+    }
+
+    //funcion para reutlizar el fomrulario
+    public function updateProduct($id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $product = $this->model->getProduct($id);
+            if (!$product) {
+                $error = "No existe el rpoducto con el id=$id";
+                $redir = "controlarProductos";
+                $this->error->showError($error, $redir);
+                return;
+            }
+            $this->view->showProductForm($product, true);
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $productData = $this->getValidatedProductData();
+            if (!$productData) {
+                $error = "Error: completar todos los campos";
+                $redir = "controlarProductos";
+                $this->error->showError($error, $redir);
+            } else {
+                // Si la validación es correcta, actualizar el producto
+                $this->model->updateProduct($id, $productData['name'], $productData['price'], $productData['description']);
+                header("Location: " . BASE_URL . "controlarProductos");
+                exit();
+            }
+        }
+    }
+
+    private function getValidatedProductData()
+    {
+        if (
+            !isset($_POST['name']) || empty($_POST['name']) ||
+            !isset($_POST['price']) || empty($_POST['price']) ||
+            !isset($_POST['description']) || empty($_POST['description'])
+        ) {
+            return false;
+        }
+        return [
+            'name' => $_POST['name'],
+            'price' => $_POST['price'],
+            'description' => $_POST['description']
+        ];
     }
     /*
     public function showSelectABMProducts() {
