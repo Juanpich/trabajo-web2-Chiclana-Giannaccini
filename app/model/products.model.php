@@ -46,6 +46,12 @@ class ProductsModel
         $id = $this->db->lastInsertId();
         return $id;
     }
+
+    public function eraseProduct($id)
+    {
+        $query = $this->db->prepare('DELETE FROM product WHERE id = ?');
+        $query->execute([$id]);
+    }
     // private function _deploy() {
     //     $query = $this->db->query("SHOW TABLES LIKE 'product'");
     //     $tables = $query->fetchAll();

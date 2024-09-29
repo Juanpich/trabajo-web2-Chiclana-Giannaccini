@@ -71,6 +71,18 @@ class ProductsController
             $this->view->addProduct();//si no se envió el formulario se muestra
         }
     }
+
+    public function deleteProduct($id) {
+        $product = $this->model->getProduct($id);
+        if (!$product) {
+            $error= "<h1>No existe el rpoducto con el id=$id</h1>";
+            $redir = "controlarProducto";
+            $controllerError = new ErrorControler();
+            $controllerError->showError($error, $redir);
+        }
+        $this->model->eraseProduct($id);//agregar mensaje de info. eliminado con exito
+        header("Location: " . BASE_URL . "controlarProductos");
+    }
     /*
     public function showSelectABMProducts() {
         // Verifica si se ha enviado la operación

@@ -49,10 +49,11 @@ switch ($params[0]) {
         $controler = new ProductsController();
         $controler->addProduct();
         break;
-        /*   case 'eliminarProducto':
-            $controler=new ProductsController();
-            $controler->deleteProduct($params[1]);
-            break;
+    case 'eliminarProducto':
+        $controler=new ProductsController();
+        $controler->deleteProduct($params[1]);
+        break;
+             /*
          case 'modificarProducto':
           $controler=new ProductsController();
              $controler->modifyProduct($params[1]);
