@@ -7,7 +7,7 @@ $isEdit = isset($product);
 <div class="container my-5 p-4 shadow-sm bg-light rounded">
     <h2 class="text-center text-black mb-4"><?= $isEdit ? "Editar producto" : "Agregar nuevo producto" ?></h2>
 
-    <form action="<?= $isEdit ? BASE_URL . 'modificarProducto/' . $product->id : BASE_URL . 'nuevoProducto' ?>" method="POST">
+    <form action="<?= $isEdit ? BASE_URL . 'modificarProducto/' . $product->id : BASE_URL . 'nuevoProducto' ?>" method="POST" enctype="multipart/form-data">
         <div class="row mb-3">
             <div class="col-md-9">
                 <div class="form-floating">
@@ -32,14 +32,15 @@ $isEdit = isset($product);
 
         <div class="form-group">
             <label for="imageProduct">Subir Imagen</label>
-            <input type="file" class="form-control-file" id="imageProduct" name="image_product" accept="image/*">
+            <input type="file" class="form-control-file" id="imageProduct" name="image_product" accept="image/webp, image/jpeg, image/png, image/gif">
         </div>
+        <div><label for="imageProduct">Formatos jpeg-png</label></div>
 
         <div class="text-center">
             <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
         </div>
     </form>
-    
+    <a href="<?php echo BASE_URL; ?>controlarProductos" class="btn btn-primary ms-5 mt-2" id="volver">VOLVER</a>
 </div>
 
 <?php 

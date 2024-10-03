@@ -40,9 +40,9 @@ class ProductsModel
     }
 
     //ABM
-    public function insertProduct($name, $price, $description){
-        $query = $this->db->prepare('INSERT INTO product(name,price,description) VALUES (?, ?, ?)');
-        $query->execute([$name,$price, $description]);
+    public function insertProduct($name, $price, $description,$image_product){
+        $query = $this->db->prepare('INSERT INTO product(name,price,description,image_product) VALUES (?, ?, ?, ?)');
+        $query->execute([$name,$price, $description, $image_product]);
         $id = $this->db->lastInsertId();
         return $id;
     }
@@ -52,12 +52,22 @@ class ProductsModel
         $query->execute([$id]);
     }
 
-    public function updateProduct($id, $name, $price, $description) {
+    public function updateProduct($id, $name, $price, $description, $image_product) {
         // Preparamos la consulta de actualización
-        $query = $this->db->prepare('UPDATE product SET name = ?, price = ?, description = ? WHERE id = ?');
-        $query->execute([$name, $price, $description,$id]);
+        $query = $this->db->prepare('UPDATE product SET name = ?, price = ?, description = ?, image_product = ? WHERE id = ?');
+        $query->execute([$name, $price, $description,$image_product,$id]);
                 return true; 
      } 
+
+     public function checkOtherImageUses($image_products)
+{
+    // Consulta para verificar cuántos productos están utilizando la misma imagen
+    $query = $this->db->prepare('SELECT COUNT(*) AS count FROM product WHERE image_product = ?');
+    $query->execute([$image_products]);
+    $result = $query->fetch(PDO::FETCH_OBJ);
+
+    return $result->count;
+}
 }
     // private function _deploy() {
     //     $query = $this->db->query("SHOW TABLES LIKE 'product'");
