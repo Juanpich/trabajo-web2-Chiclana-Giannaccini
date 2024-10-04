@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-10-2024 a las 06:21:15
+-- Tiempo de generación: 04-10-2024 a las 16:54:10
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -69,9 +69,8 @@ INSERT INTO `product` (`id`, `name`, `price`, `description`, `image_product`) VA
 (5, 'Papas', 500, 'Papas artesanalmente recolectadas, cortadas y fritas', NULL),
 (6, 'Picada', 6000, 'Salamin, quesos y aceitunas', NULL),
 (13, 'Mascarpone', 5500, 'Postre de mascarpone', NULL),
-(34, 'Limonada', 1000, 'Jugo de limon exprimido con gengibre rallado', ''),
-(52, 'Pizza peperoni', 5000, 'Pizza de muzzarella y peperoni en fetas', './img/pizza-peperonni.jpg'),
-(53, 'Cafe', 1500, 'Expresso, cortado', './img/cafe.jpeg');
+(53, 'Cafe', 1500, 'Expresso, cortado', 'https://elpoderdelconsumidor.org/wp-content/uploads/2021/04/cafe.jpg'),
+(54, 'cookies', 1300, 'galletitas de chocolate', 'https://sallysbakingaddiction.com/wp-content/uploads/2013/05/classic-chocolate-chip-cookies.jpg');
 
 --
 -- Índices para tablas volcadas
@@ -104,7 +103,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- Restricciones para tablas volcadas

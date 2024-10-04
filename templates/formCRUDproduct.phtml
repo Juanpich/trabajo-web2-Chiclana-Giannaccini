@@ -31,13 +31,12 @@ $isEdit = isset($product);
         </div>
 
         <div class="form-group">
-            <label for="imageProduct">Subir Imagen</label>
-            <input type="file" class="form-control-file" id="imageProduct" name="image_product" accept="image/jpeg, image/png">
-        </div>
-        <div><label for="imageProduct">Formatos jpeg-png</label></div>
+        <label for="imageUrl">Ingresar URL de la imagen</label>
+        <input type="url" class="form-control" id="imageUrl" name="image_product" placeholder="http://ejemplo.com/imagen.jpg" value="<?= isset($product->image_product) ? $product->image_product : '' ?>">
+    </div>
 
         <div class="text-center">
-            <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+            <button type="submit" class="btn btn-primary btn-lg mt-3">Guardar</button>
         </div>
     </form>
     <a href="<?php echo BASE_URL; ?>controlarProductos" class="btn btn-primary ms-5 mt-2" id="volver">VOLVER</a>
