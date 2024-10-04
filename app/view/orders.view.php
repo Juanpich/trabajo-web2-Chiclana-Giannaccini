@@ -10,9 +10,13 @@ class OrdersView{
         require_once './templates/viewOrder.phtml';
     }
 
-    public function seeABMOrders($elements){
-        $items = "orden";
+    public function seeABMOrders($ordens,$result, $success){
         require_once './templates/CRUD.phtml';
+        
+    }
+    public function seeForm($order, $products){
+        require_once './templates/formCRUDorder.phtml';
+
     }
 }
 

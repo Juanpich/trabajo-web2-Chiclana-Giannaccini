@@ -36,11 +36,26 @@ switch ($params[0]) {
         $controller = new OrdersControlers();
         $controller->OrdersABM();
         break;
-    case 'ABMOrdenes':
-        $controler = new OrdersControlers();
-        $controler->showSelectABM();
-
-        //ABM 
+    case 'eliminarOrden':
+        $controller = new OrdersControlers();
+        $controller->deleteOrder($params[1]);
+        break; 
+    case 'formularioModificarOrden':
+        $controller = new OrdersControlers();
+        $controller->showOrderForm($params[1]);
+        break;
+    case 'modificarOrden':
+        $controller = new OrdersControlers();
+        $controller->updateOrder($params[1]);
+        break;
+    case 'formularioNuevaOrden':  
+        $controller = new OrdersControlers();
+        $controller->showOrderForm();
+        break;
+    case 'crearOrden': 
+        $controller = new OrdersControlers();
+        $controller->createOrder();
+        break;   
     case 'controlarProductos':
         $controller = new ProductsController();
         $controller->productsABM();
