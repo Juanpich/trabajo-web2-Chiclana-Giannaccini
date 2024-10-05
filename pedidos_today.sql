@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-10-2024 a las 16:54:10
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 05-10-2024 a las 19:49:28
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,10 +40,11 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `id_product`, `cant_products`, `total`, `date`) VALUES
-(1, 1, 2, 4000, '2024-09-11'),
-(3, 2, 1, 3000, '2024-09-19'),
-(6, 5, 3, 1500, '2024-09-12'),
-(7, 1, 1, 2000, '2024-09-30');
+(11, 6, 5, 500, '2024-10-03'),
+(12, 6, 2, 200, '2024-10-03'),
+(13, 2, 2, 6000, '2024-10-12'),
+(15, 5, 6, 3000, '2024-10-08'),
+(16, 7, 4, 2000, '2024-10-28');
 
 -- --------------------------------------------------------
 
@@ -55,22 +56,37 @@ CREATE TABLE `product` (
   `id` int(11) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
   `price` double DEFAULT NULL,
-  `description` varchar(150) DEFAULT NULL,
-  `image_product` varchar(120) DEFAULT NULL
+  `description` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `product`
 --
 
-INSERT INTO `product` (`id`, `name`, `price`, `description`, `image_product`) VALUES
-(1, 'Hamburguesa doble con chedar', 2000, 'Habmurguesa doble carne, con chedar, huevo, tomate, lechuga.', NULL),
-(2, 'Pizza mozzarella', 3000, 'Pizza con salsa de tomate y mucha mozzarella', ''),
-(5, 'Papas', 500, 'Papas artesanalmente recolectadas, cortadas y fritas', NULL),
-(6, 'Picada', 6000, 'Salamin, quesos y aceitunas', NULL),
-(13, 'Mascarpone', 5500, 'Postre de mascarpone', NULL),
-(53, 'Cafe', 1500, 'Expresso, cortado', 'https://elpoderdelconsumidor.org/wp-content/uploads/2021/04/cafe.jpg'),
-(54, 'cookies', 1300, 'galletitas de chocolate', 'https://sallysbakingaddiction.com/wp-content/uploads/2013/05/classic-chocolate-chip-cookies.jpg');
+INSERT INTO `product` (`id`, `name`, `price`, `description`) VALUES
+(2, 'Pizza mozzarella', 3000, 'Pizza con salsa de tomate y mucha mozzarella'),
+(5, 'Papas', 500, 'Papas artesanalmente recolectadas, cortadas y fritas'),
+(6, 'Coca Cola', 100, 'Bebida muy refrescante'),
+(7, 'Bombon helado', 500, 'postre bombon helado de alta calidad y el mejor sabor a chocolate');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `userName` varchar(250) NOT NULL,
+  `password` char(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `user`
+--
+
+INSERT INTO `user` (`id`, `userName`, `password`) VALUES
+(1, 'juanpich', '$2y$10$WgfdVcd3ntADRG93D0Byduz5gRpdw7/QzPkdKG.GAbJqVqTXlMgUO');
 
 --
 -- Índices para tablas volcadas
@@ -90,6 +106,13 @@ ALTER TABLE `product`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `userName` (`userName`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -97,13 +120,19 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas

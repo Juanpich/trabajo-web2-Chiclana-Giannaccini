@@ -1,6 +1,10 @@
 <?php 
 class OrdersView{
-    public function __construct(){
+    public $user = null;
+    public function __construct($res){
+        if($res != null)
+            $this->user = $res->userName;
+       
     }
     public function showOrders($orders){
         require_once './templates/listOrders.phtml';

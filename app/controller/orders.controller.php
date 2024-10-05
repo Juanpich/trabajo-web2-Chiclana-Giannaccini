@@ -6,8 +6,8 @@ require_once './app/controller/error.controller.php';
 class OrdersControlers{
     private $view;
     private $model;
-    public function __construct(){
-        $this->view = new OrdersView();
+    public function __construct($res){
+        $this->view = new OrdersView($res->user);
         $this->model = new OrdersModel();
     }
     public function showHome(){

@@ -24,16 +24,21 @@
             Mas
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Iniciar Seccion</a></li>
+          <?php 
+            if($this->user == NULL): ?>
+            <li><a class="dropdown-item" href="<?php echo BASE_URL ?>iniciarSeccion">Iniciar Seccion</a></li>
             <li><hr class="dropdown-divider"></li>
+            <?php 
+            else: ?>
             <li><a class="dropdown-item" href="<?php echo BASE_URL ?>controlarOrdenes">Controlar Ordenes</a></li>
-            <li><a class="dropdown-item" href="<?php echo BASE_URL ?>controlarProductos">Controlar Productos</a></li>          </ul>
+            <li><a class="dropdown-item" href="<?php echo BASE_URL ?>controlarProductos">Controlar Productos</a></li>  
+            <?php endif ?>        
+          </ul>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <?php if($this->user != NULL) : ?>
+        <p>Usuario: <?=$this->user ?></p>
+      <?php endif ?>
     </div>
   </div>
 </nav>
