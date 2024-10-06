@@ -3,7 +3,7 @@ class OrdersView{
     public $user = null;
     public function __construct($res){
         if($res != null)
-            $this->user = $res->userName;
+            $this->user = $res->user_name;
        
     }
     public function showOrders($orders){

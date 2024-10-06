@@ -26,10 +26,11 @@
           <ul class="dropdown-menu">
           <?php 
             if($this->user == NULL): ?>
-            <li><a class="dropdown-item" href="<?php echo BASE_URL ?>iniciarSeccion">Iniciar Seccion</a></li>
-            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="<?php echo BASE_URL ?>iniciarSesion">Iniciar Sesion</a></li>
             <?php 
             else: ?>
+             <li><a class="dropdown-item" href="<?php echo BASE_URL ?>cerrarSesion">Cerrar Sesion</a></li>
+             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="<?php echo BASE_URL ?>controlarOrdenes">Controlar Ordenes</a></li>
             <li><a class="dropdown-item" href="<?php echo BASE_URL ?>controlarProductos">Controlar Productos</a></li>  
             <?php endif ?>        

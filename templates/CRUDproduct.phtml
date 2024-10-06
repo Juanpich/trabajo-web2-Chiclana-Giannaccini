@@ -1,7 +1,18 @@
-<?php
+<?php 
 require_once './templates/layout/header.phtml';
+if($result != null): 
+    if($result):?>
+      <div class="alert alert-success  text-center" role="alert">
+          <?= $success?> con exito 
+      </div>
+    <?php else:  ?>
+      <div class="alert alert-danger  text-center" role="alert">
+        <?= $success?> sin exito
+      </div>
+    <?php endif  ?>
+<?php endif ;
 ?>
-<!-- L variable items contiene el nombre del item -->
+  
 <div class="container overflow-hidden text-center">
   <h2>PRODUCTOS</h2>
   <h3>Seleccione la operacion que desea realizar</h3>
@@ -21,7 +32,7 @@ require_once './templates/layout/header.phtml';
           <tr>
             <th scope="row">
               <?php if (!empty($product->image_product)) : ?>
-                <img src="<?php echo $product->image_product ?>" class= "image_product" alt="Imagen de <?php echo $product->name ?>">
+                <img src="<?php echo $product->image_product ?>" id= "image_product" alt="Imagen de <?php echo $product->name ?>" style="width: 60px; height: auto">
               <?php endif; ?>
             </th>
             <th scope="row"><?php echo $product->id ?></th>

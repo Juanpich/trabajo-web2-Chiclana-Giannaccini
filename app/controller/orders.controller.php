@@ -1,3 +1,4 @@
+<!--Comentarios: para porder pasar el $res del error lo tuve que poner error en el constructor para que me funcionara-->
 <?php
 require_once './app/model/orders.model.php';
 require_once './app/view/orders.view.php';
@@ -6,9 +7,11 @@ require_once './app/controller/error.controller.php';
 class OrdersControlers{
     private $view;
     private $model;
+    private $error;
     public function __construct($res){
         $this->view = new OrdersView($res->user);
         $this->model = new OrdersModel();
+        $this->error = new ErrorControler($res);
     }
     public function showHome(){
         $orders = $this->model->getOrders();
@@ -29,8 +32,7 @@ class OrdersControlers{
         }else{
             $error="No existe la orden y/o producto";
             $redir="home";
-            $controllerError = new ErrorControler();
-            $controllerError->showError($error,$redir);
+            $this->error->showError($error,$redir);
         }
     }
     public function OrdersABM($result = null, $success = ''){
@@ -47,8 +49,7 @@ class OrdersControlers{
         }else{
             $error = "El producto no existe";
             $redir = "controlarOrdenes";
-            $controllerError = new ErrorControler();
-            $controllerError->showError($error,$redir);
+            $this->error->showError($error,$redir);
         }
     }
     public function showOrderForm($id = null){
@@ -61,8 +62,7 @@ class OrdersControlers{
             }else{
                 $error = "El producto no existe";
                 $redir = "controlarOrdenes";
-                $controllerError = new ErrorControler();
-                $controllerError->showError($error,$redir);
+                $this->error->showError($error,$redir);
             }
         }else{
             $this->view->seeForm(null, $products);
@@ -71,7 +71,7 @@ class OrdersControlers{
     }
     private function checkFormData(){
         if(isset($_POST['product']) && !empty($_POST['product']) && isset($_POST['cant_products']) && $_POST['cant_products'] > 0 && !empty($_POST['cant_products']) && isset($_POST['date']) && !empty($_POST['date'])){
-            $id_product = $_POST['product'];
+            $id_product = $_POST['product'];   
             $cant_products = $_POST['cant_products'];
             $date = $_POST['date'];
             $modelProducts = new ProductsModel();
@@ -88,14 +88,12 @@ class OrdersControlers{
             }else{
                 $error = "El producto no existe";
                 $redir = "controlarOrdenes";
-                $controllerError = new ErrorControler();
-                $controllerError->showError($error,$redir);
+                $this->error->showError($error,$redir);
             }
         }else{
             $error = "Faltan completar campos";
             $redir = "formularioModificarOrden";
-            $controllerError = new ErrorControler();
-            $controllerError->showError($error,$redir);
+            $this->error->showError($error,$redir);
         }
     }
     public function updateOrder($id){
@@ -109,8 +107,7 @@ class OrdersControlers{
         }else{
             $error = "La orden no existe";
             $redir = "controlarOrdenes";
-            $controllerError = new ErrorControler();
-            $controllerError->showError($error,$redir);
+            $this->error->showError($error,$redir);
         }   
     }
     public function createOrder(){

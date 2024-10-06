@@ -25,14 +25,18 @@ switch ($params[0]) {
         $controller = new OrdersControlers($res);
         $controller->showHome();
         break;
-    case 'iniciarSeccion':
+    case 'iniciarSesion':
         $controller = new AuthController();
         $controller->showLogin();
-        break;    
+        break;     
     case 'verificarLogin':
         $controller = new AuthController();
         $controller->login();
             break;
+    case 'cerrarSesion':    
+        $controller = new AuthController($res);
+        $controller->logout();
+            break;   
     case 'verOrden':
         sessionAuthMiddleware($res);
         $controller = new OrdersControlers($res);
@@ -40,12 +44,12 @@ switch ($params[0]) {
         break;
     case 'categorias':
         sessionAuthMiddleware($res);
-        $controller = new ProductsController();
+        $controller = new ProductsController($res);
         $controller->showCategories();
         break;
     case 'itemCategoria':
         sessionAuthMiddleware($res);
-        $controller = new ProductsController();
+        $controller = new ProductsController($res);
         $controller->viewItemByCategories($params[1]);
         break;
     case 'controlarOrdenes':
@@ -84,34 +88,47 @@ switch ($params[0]) {
         $controller = new OrdersControlers($res);
         $controller->createOrder();
         break;   
+        //MAJo
     case 'controlarProductos':
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
-        $controller = new ProductsController();
+        $controller = new ProductsController($res);
         $controller->productsABM();
         break;
     case 'nuevoProducto':
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
-        $controler = new ProductsController();
+        $controler = new ProductsController($res);
         $controler->addProduct();
+        break;  
+    case 'formularioNuevoProducto':  
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
+        $controller = new ProductsController($res);
+        $controller->showProductForm();
         break;
     case 'eliminarProducto':
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
-        $controler=new ProductsController();
+        $controler=new ProductsController($res);
         $controler->deleteProduct($params[1]);
         break;
     case 'modificarProducto':
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
-        $controler=new ProductsController();
+        $controler=new ProductsController($res);
         $controler->updateProduct($params[1]);
-             break; 
+        break;
+    case 'formularioModificarProducto':
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
+        $controller = new ProductsController($res);
+        $controller->showProductForm($params[1]);
+        break;
     default:
         $error = "404 page not found";
         $redir = "home";
-        $controler = new ErrorControler();
+        $controler = new ErrorControler($res);
         $controler->showError($error, $redir);
         break;
 }

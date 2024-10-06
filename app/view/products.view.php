@@ -1,11 +1,12 @@
 <?php
-class ProductsView
-{
+class ProductsView{
+    public $user = null;
 
-    public function __construct() {}
-
-    public function showProducts($products)
-    {
+    public function __construct($res) {
+        if($res != null)
+        $this->user = $res->user_name;
+    }
+    public function showProducts($products){
         require_once './templates/listProducts.phtml';
     }
 
@@ -14,7 +15,7 @@ class ProductsView
         require_once './templates/viewItems.phtml';
     }
 
-    public function seeABMProducts($products)
+    public function seeABMProducts($products,$result, $success)
     {
         require_once './templates/CRUDproduct.phtml';
     }

@@ -9,11 +9,11 @@ class ProductsController
     private $model;
     private $error;
 
-    public function __construct()
+    public function __construct($res)
     {
-        $this->view = new ProductsView();
+        $this->view = new ProductsView($res->user);
         $this->model = new ProductsModel();
-        $this->error = new ErrorControler();
+        $this->error = new ErrorControler($res);
     }
 
     public function showCategories()
@@ -41,59 +41,49 @@ class ProductsController
             }
         }
     }
-    //ABM //CREAR CAMPO image_product en la bd (varchar 120)
-    public function ProductsABM()
+
+    //ABM
+    public function productsABM($result = null, $success = '')
     {
         $products = $this->model->getProducts();
-        $this->view->seeABMProducts($products);
+        $this->view->seeABMProducts($products, $result, $success);
     }
 
     public function addProduct()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') { //si se envia el formulario se procesa
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $productData = $this->getValidatedProductData();
+
+            // Si la validación falla, manejar el error
             if (!$productData) {
-                $error = "Error: completar todos los campos";
+                $error = "Error: completar todos los campos obligatorios";
                 $redir = "nuevoProducto";
                 $this->error->showError($error, $redir);
-            }else {
-                $image_product = null;  // Inicializar la variable de imagen como null 
-    
-                // Verificar si el usuario proporcionó una URL de imagen
-                if (!empty($_POST['image_product'])) {
-                    $image_product = $_POST['image_product'];
-    
-                    // Validar que la URL sea válida
-                    if (!filter_var($image_product, FILTER_VALIDATE_URL)) {
-                        $error = "URL de imagen no válida.";
-                        $redir = "nuevoProducto";
-                        $this->error->showError($error, $redir);
-                        return;
-                    }
-                }
-                // Inserto el producto con la imagen si se cargo o null si no---
-                $id = $this->model->insertProduct($productData['name'], $productData['price'], $productData['description'],$image_product);
-                header("Location: " . BASE_URL . "controlarProductos");
-                exit();
-    } }else {
-        $this->view->addProduct();
+            } else {
+                $result = $this->model->insertProduct($productData['name'], $productData['price'], $productData['description'], $productData['image_product']);
+                $success = "Tarea Creada";
+                $this->productsABM($result, $success);
+                return;
+            }
+        } else {
+            $this->view->addProduct();
+        }
     }
-}
-
 
     public function deleteProduct($id)
     {
-        $product = $this->model->getProduct($id);
-        if (!$product) {
+        if($this->model->checkIDExists($id)){
+            $result = $this->model->eraseProduct($id);
+            $success = "Tarea eliminada";
+            $this->productsABM($result, $success);
+            return;
+        } else {
             $error = "No existe el producto con el id=$id";
             $redir = "controlarProductos";
             $this->error->showError($error, $redir);
         }
-        $this->model->eraseProduct($id); //agregar mensaje de info. eliminado con exito
-        header("Location: " . BASE_URL . "controlarProductos");
     }
 
-    
     public function updateProduct($id)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -105,47 +95,23 @@ class ProductsController
                 return;
             }
             $this->view->showProductForm($product, true);
-
-            //si envio el formulario...
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $productData = $this->getValidatedProductData();
             if (!$productData) {
-                $error = "Error: completar todos los campos";
+                $error = "Error: completar todos los campos obligatorios";
                 $redir = "controlarProductos";
                 $this->error->showError($error, $redir);
             } else {
-                // Obtener el producto existente
-                $product = $this->model->getProduct($id);
-    
-                // Procesar la imagen solo si se ha subido una nueva
-                if(!empty($_POST['image_product'])) {
-                    $image_product = $_POST['image_product'];
-    
-                    // Validar que la URL sea válida
-                    if (filter_var($image_product, FILTER_VALIDATE_URL)) {
-                        $productData['image_product'] = $image_product;
-                    } else {
-                        $error = "La URL de imagen no es válida.";
-                        $redir = "controlarProductos";
-                        $this->error->showError($error, $redir);
-                        return;
-                    }
-                } else {
-                    // si borra la imagen queda null
-                    $productData['image_product'] = null;
-                }
-                $this->model->updateProduct($id, $productData['name'], $productData['price'], $productData['description'], $productData['image_product']);
-    
-                header("Location: " . BASE_URL . "controlarProductos");
-                exit();
+                // Actualizo el producto
+                $result = $this->model->updateProduct($id, $productData['name'], $productData['price'], $productData['description'], $productData['image_product']);
+                $success = "Tarea Modificada";
+                $this->productsABM($result, $success);
             }
         }
     }
-    
-        
-
     private function getValidatedProductData()
     {
+        // Verificar campos obligatorios
         if (
             !isset($_POST['name']) || empty($_POST['name']) ||
             !isset($_POST['price']) || empty($_POST['price']) ||
@@ -153,42 +119,35 @@ class ProductsController
         ) {
             return false;
         }
+        $image_product = null;
+        if (!empty($_POST['image_product'])) {
+            $image_product = htmlspecialchars($_POST['image_product']);
+            if (!filter_var($image_product, FILTER_VALIDATE_URL)) {
+                return false;
+            }
+        }
+        // Si todos los datos son válidos, devolver un array con los datos
         return [
-            'name' => $_POST['name'],
-            'price' => $_POST['price'],
-            'description' => $_POST['description']
+            'name' => htmlspecialchars($_POST['name']),
+            'price' => htmlspecialchars($_POST['price']),
+            'description' => htmlspecialchars($_POST['description']),
+            'image_product' => $image_product 
         ];
     }
-    /*
-    public function showSelectABMProducts() {
-        // Verifica si se ha enviado la operación
-        if (!isset($_POST['operation']) || empty($_POST['operation'])) {
-            $error = "Seleccione una opción";
-            $redir = "controlarProducto";
-            $controller = new ErrorControler();
-            $controller->showError($error, $redir);
-            return;
+
+    public function showProductForm($id = null)
+    {
+        if ($id != null) {
+            if ($this->model->checkIDExists($id)) {
+                $product = $this->model->getProduct($id);
+                $this->view->showProductForm($product, true);
+            } else {
+                $error = "El producto no existe";
+                $redir = "controlarOrdenes";
+                $this->error->showError($error, $redir);
+            }
+        } else {
+            $this->view->addProduct();
         }
-$action = $_POST['operation'];
-    switch ($action) {
-        case 'nuevoProducto':
-            $this->addProduct(); 
-            break;
-
-        case 'modificarProducto':
-            $this->updateProduct(); 
-            break;
-
-        case 'delete':
-            $this->eliminarProduct(); 
-            break;
-
-        default:
-            $error = "Operación no válida";
-            $redir = "controlarProducto";
-            $controller = new ErrorControler();
-            $controller->showError($error, $redir);
-            break;    
-    }  
-    }*/
+    }
 }

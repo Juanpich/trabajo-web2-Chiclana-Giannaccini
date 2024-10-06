@@ -9,9 +9,9 @@ class UserModel {
         MYSQL_USER, MYSQL_PASS);
     }
  
-    public function getUserByUserNsme($userName) {    
-        $query = $this->db->prepare("SELECT * FROM user WHERE userName = ?");
-        $query->execute([$userName]);
+    public function getUserByUserNsme($user_name) {    
+        $query = $this->db->prepare("SELECT * FROM user WHERE user_name = ?");
+        $query->execute([$user_name]);
     
         $user = $query->fetch(PDO::FETCH_OBJ);
     
