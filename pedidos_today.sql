@@ -3,9 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-10-2024 a las 16:24:52
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+
+-- Tiempo de generación: 07-10-2024 a las 03:32:43
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,10 +42,18 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `id_product`, `cant_products`, `total`, `date`) VALUES
+<<<<<<< HEAD
 (1, 1, 2, 4000, '2024-09-11'),
 (3, 2, 1, 3000, '2024-09-19'),
 (6, 5, 3, 1500, '2024-09-12'),
 (7, 1, 1, 2000, '2024-09-30');
+=======
+(12, 6, 2, 200, '2024-10-03'),
+(13, 2, 2, 6000, '2024-10-12'),
+(15, 5, 6, 3000, '2024-10-08'),
+(17, 7, 2, 1000, '2024-10-09'),
+(18, 2, 3, 9000, '2024-10-03');
+>>>>>>> 0b65344a9e1fe5efb07ed5146e11e06546437b86
 
 -- --------------------------------------------------------
 
@@ -78,8 +88,13 @@ INSERT INTO `product` (`id`, `name`, `price`, `description`, `image_product`) VA
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
+<<<<<<< HEAD
   `user_name` varchar(100) NOT NULL,
   `password` varchar(120) NOT NULL
+=======
+  `user_name` varchar(250) NOT NULL,
+  `password` char(60) NOT NULL
+>>>>>>> 0b65344a9e1fe5efb07ed5146e11e06546437b86
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -87,7 +102,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `user_name`, `password`) VALUES
+<<<<<<< HEAD
 (1, 'webadmin', '$2y$10$r8HJhVApm4gkltB2xy0tyu./QIdz3cSprUj/yk6K6MUsNn8TT7w/O');
+=======
+(1, 'juanpich', '$2y$10$WgfdVcd3ntADRG93D0Byduz5gRpdw7/QzPkdKG.GAbJqVqTXlMgUO');
+>>>>>>> 0b65344a9e1fe5efb07ed5146e11e06546437b86
 
 --
 -- Índices para tablas volcadas
@@ -110,7 +129,12 @@ ALTER TABLE `product`
 -- Indices de la tabla `user`
 --
 ALTER TABLE `user`
+<<<<<<< HEAD
   ADD PRIMARY KEY (`id`);
+=======
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `userName` (`user_name`);
+>>>>>>> 0b65344a9e1fe5efb07ed5146e11e06546437b86
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -120,7 +144,11 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+>>>>>>> 0b65344a9e1fe5efb07ed5146e11e06546437b86
 
 --
 -- AUTO_INCREMENT de la tabla `product`
