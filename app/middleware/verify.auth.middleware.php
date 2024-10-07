@@ -3,7 +3,7 @@
         if($res->user){
             return;
         } else {
-            header('Location: ' . BASE_URL . 'iniciarSeccion');
+            header('Location: ' . BASE_URL . 'iniciarSesion');
             die();
         }
     }
