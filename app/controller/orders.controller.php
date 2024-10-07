@@ -89,30 +89,37 @@ class OrdersControlers{
                 $error = "El producto no existe";
                 $redir = "controlarOrdenes";
                 $this->error->showError($error,$redir);
+                return;
             }
         }else{
             $error = "Faltan completar campos";
-            $redir = "formularioModificarOrden";
+            $redir = "controlarOrdenes";
             $this->error->showError($error,$redir);
+            return;
         }
     }
     public function updateOrder($id){
         if($this->model->checkIDExists($id)){
             $data = $this->checkFormData();
-            $result = $this->model->updateOrder($id, $data);
-            $success = "Tarea Modificada";
-            $this->OrdersABM($result, $success);
-            return;
-            
-        }else{
+            if($data != null){
+                $result = $this->model->updateOrder($id, $data);
+                $success = "Tarea Modificada";
+                $this->OrdersABM($result, $success);
+                return;
+            }
+        }
             $error = "La orden no existe";
             $redir = "controlarOrdenes";
             $this->error->showError($error,$redir);
-        }   
+      
     }
     public function createOrder(){
         $data = $this->checkFormData();
-        $result = $this->model->createOrder($data);
+        if($data != null){
+            $result = $this->model->createOrder($data);
+        }else{
+            $result = null;
+        }
         $success = "Tarea Creada";
         $this->OrdersABM($result, $success);
         return;

@@ -6,9 +6,9 @@ require_once './app/controller/auth.controller.php';
 require_once './app/middleware/session.auth.middlware.php';
 require_once './app/middleware/verify.auth.middleware.php';
 require_once './response.php';
+require_once './config.php';
 
 
-//faltaba agregar
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
 if (isset($_GET['action']) && !empty($_GET['action'])) {

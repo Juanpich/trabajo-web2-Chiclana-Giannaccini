@@ -26,24 +26,20 @@ class AuthController {
         $password = $_POST['password'];
 
         $userFromDB = $this->model->getUserByUserNsme($user_name);
-
-        // password: 46902119
-        // $userFromDB->password: $2y$10$WgfdVcd3ntADRG93D0Byduz5gRpdw7/QzPkdKG.GAbJqVqTXlMgUO
         if($userFromDB && password_verify($password, $userFromDB->password)){
             session_start();
             $_SESSION['ID_USER'] = $userFromDB->id;
             $_SESSION['NAME_USER'] = $userFromDB->user_name;
             header('Location: ' . BASE_URL);
         } else {
-            //si el usuario no se encuentra o la clave no coincide lanza el error
             return $this->view->showLogin('La clave o contraseña no cionciden');
         }
     }
 
     public function logout()
     {
-        session_start(); // Va a buscar la cookie
-        session_destroy(); // Borra la cookie que se buscó
+        session_start(); 
+        session_destroy(); 
         header("Location: " . BASE_URL . "home");
     }
 }

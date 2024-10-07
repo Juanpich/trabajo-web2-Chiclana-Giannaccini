@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-10-2024 a las 19:49:28
+-- Tiempo de generación: 07-10-2024 a las 03:32:43
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -40,11 +40,11 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `id_product`, `cant_products`, `total`, `date`) VALUES
-(11, 6, 5, 500, '2024-10-03'),
 (12, 6, 2, 200, '2024-10-03'),
 (13, 2, 2, 6000, '2024-10-12'),
 (15, 5, 6, 3000, '2024-10-08'),
-(16, 7, 4, 2000, '2024-10-28');
+(17, 7, 2, 1000, '2024-10-09'),
+(18, 2, 3, 9000, '2024-10-03');
 
 -- --------------------------------------------------------
 
@@ -77,7 +77,7 @@ INSERT INTO `product` (`id`, `name`, `price`, `description`) VALUES
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `userName` varchar(250) NOT NULL,
+  `user_name` varchar(250) NOT NULL,
   `password` char(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -85,7 +85,7 @@ CREATE TABLE `user` (
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`id`, `userName`, `password`) VALUES
+INSERT INTO `user` (`id`, `user_name`, `password`) VALUES
 (1, 'juanpich', '$2y$10$WgfdVcd3ntADRG93D0Byduz5gRpdw7/QzPkdKG.GAbJqVqTXlMgUO');
 
 --
@@ -110,7 +110,7 @@ ALTER TABLE `product`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `userName` (`userName`);
+  ADD UNIQUE KEY `userName` (`user_name`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -120,7 +120,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `product`
