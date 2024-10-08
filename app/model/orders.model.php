@@ -55,6 +55,12 @@ class OrdersModel{
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
             SQL;
             $this->db->query($sql);
+            $insertSql = "INSERT INTO `orders` (`id`, `id_product`, `cant_products`, `total`, `date`) VALUES
+                        (1, 1, 2, 4000, '2024-09-11'),
+                        (3, 2, 1, 3000, '2024-09-19'),
+                        (6, 5, 3, 1500, '2024-09-12'),
+                        (7, 1, 1, 2000, '2024-09-30');";
+            $this->db->prepare($insertSql)->execute();
         }
     }
     
