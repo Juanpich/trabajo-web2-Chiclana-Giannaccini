@@ -5,6 +5,7 @@ require_once './app/controller/error.controller.php';
 require_once './app/controller/auth.controller.php';
 require_once './app/middleware/session.auth.middlware.php';
 require_once './app/middleware/verify.auth.middleware.php';
+require_once './app/model/abstract.model.php';
 require_once './response.php';
 require_once './config.php';
 

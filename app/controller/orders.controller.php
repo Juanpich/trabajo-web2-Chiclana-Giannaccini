@@ -2,6 +2,7 @@
 <?php
 require_once './app/model/orders.model.php';
 require_once './app/view/orders.view.php';
+require_once './app/model/abstract.model.php';
 require_once './app/model/products.model.php';
 require_once './app/controller/error.controller.php';
 class OrdersControlers{

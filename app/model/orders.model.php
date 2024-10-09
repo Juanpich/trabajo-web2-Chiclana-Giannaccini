@@ -1,13 +1,9 @@
 <?php
+require_once './app/model/abstract.model.php';
 require_once './config.php';
-class OrdersModel{
-    private $db;
+class OrdersModel extends modelAbstract{
     public function __construct(){
-        $this->db = new PDO(
-            "mysql:host=".MYSQL_HOST .
-            ";dbname=".MYSQL_DB.";charset=utf8", 
-            MYSQL_USER, MYSQL_PASS);
-        $this->_deploy();     
+        parent::__construct();   
     }
     public function getOrders(){
         $query = $this->db->prepare("SELECT * FROM orders");
@@ -24,14 +20,15 @@ class OrdersModel{
         $result = $query->execute([$id]);
         return $query->fetchColumn() > 0;
     }
-    public function eraseOrder($id){
-        $query = $this->db->prepare("DELETE FROM orders WHERE id = ?");
-        $result = $query->execute([$id]);
-        return $result;
-    }
+    
     public function updateOrder($id, $data){
         $query = $this->db->prepare("UPDATE orders SET id_product = ?, cant_products = ?, total = ?, date = ? WHERE  orders . id = ?");
         $result = $query->execute([$data["id_product"], $data["cant_products"],  $data["total"], $data["date"], $id]);
+        return $result;
+    }
+    public function eraseOrder($id){
+        $query = $this->db->prepare("DELETE FROM orders WHERE id = ?");
+        $result = $query->execute([$id]);
         return $result;
     }
     public function createOrder($data){
@@ -39,30 +36,8 @@ class OrdersModel{
         $result = $query->execute([$data["id_product"], $data["cant_products"],  $data["total"], $data["date"]]);
         return $result;
     }
-    private function _deploy() {
-        $query = $this->db->query("SHOW TABLES LIKE 'orders'");
-        $tables = $query->fetchAll();
-        if (count($tables) == 0) {
-            $sql =<<<SQL
-            CREATE TABLE `orders` (
-              `id` int(11) NOT NULL AUTO_INCREMENT,
-              `id_product` int(11) DEFAULT NULL,
-              `cant_products` int(11) DEFAULT NULL,
-              `total` int(100) NOT NULL,
-              `date` date DEFAULT NULL,
-              PRIMARY KEY (`id`),
-              KEY `id_product` (`id_product`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-            SQL;
-            $this->db->query($sql);
-            $insertSql = "INSERT INTO `orders` (`id`, `id_product`, `cant_products`, `total`, `date`) VALUES
-                        (1, 1, 2, 4000, '2024-09-11'),
-                        (3, 2, 1, 3000, '2024-09-19'),
-                        (6, 5, 3, 1500, '2024-09-12'),
-                        (7, 1, 1, 2000, '2024-09-30');";
-            $this->db->prepare($insertSql)->execute();
-        }
-    }
+
+    
     
 }
 

@@ -1,6 +1,7 @@
 <?php
 require_once './app/model/auth.model.php';
 require_once './app/view/auth.view.php';
+require_once './app/model/abstract.model.php';
 class AuthController {
     private $model;
     private $view;
