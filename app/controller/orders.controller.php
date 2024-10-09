@@ -47,7 +47,7 @@ class OrdersControlers{
         if($this->model->checkIDExists($id)){
             $result = $this->model->eraseOrder($id);
             if($result)
-                header('Location: ' . BASE_URL . 'modificado');
+                header('Location: ' . BASE_URL . 'realizado');
             else
                 $this->error->showError('Error en la base de datos', 'controlarOrdenes');
             return;
@@ -110,7 +110,7 @@ class OrdersControlers{
             if($data != null){
                 $result = $this->model->updateOrder($id, $data);
                 if($result)
-                    header('Location: ' . BASE_URL . 'modificado');
+                    header('Location: ' . BASE_URL . 'realizado');
                 else
                     $this->error->showError('Error en la base de datos', 'controlarOrdenes');
                 return;
@@ -129,7 +129,7 @@ class OrdersControlers{
             $result = null;
         }
         if($result)
-            header('Location: ' . BASE_URL . 'modificado');
+            header('Location: ' . BASE_URL . 'realizado');
         else
             $this->error->showError('Error en la base de datos', 'controlarOrdenes');
                 

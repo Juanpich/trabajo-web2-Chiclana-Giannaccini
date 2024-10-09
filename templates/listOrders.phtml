@@ -13,7 +13,7 @@
       <tr>
         <th scope="row"><?php echo$order->id?></th>
         <td><?php echo $order->total ?></td>
-        <td><a href="<?php echo BASE_URL . "verOrden/" . $order->id?>">Ver Completo</a></td>
+        <td><a class="btn btn-warning ms-2 mt-2" href="<?php echo BASE_URL . "verOrden/" . $order->id?>">Ver Completo</a></td>
       </tr>
     <?php endforeach ?>
     </tbody>

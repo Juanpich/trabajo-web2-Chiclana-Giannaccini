@@ -67,7 +67,7 @@ class ProductsController
             } else {
                 $result = $this->model->insertProduct($productData['name'], $productData['price'], $productData['description'], $productData['image_product']);
                 if($result)
-                header('Location: ' . BASE_URL . 'modificado');
+                header('Location: ' . BASE_URL . 'realizado');
             else
                 $this->error->showError('Error en la base de datos', 'controlarProductos');
             return;
@@ -82,7 +82,7 @@ class ProductsController
         if($this->model->checkIDExists($id)){
             $result = $this->model->eraseProduct($id);
             if($result)
-            header('Location: ' . BASE_URL . 'modificado');
+            header('Location: ' . BASE_URL . 'realizado');
         else
             $this->error->showError('Error en la base de datos', 'controlarProductos');
         return;
@@ -114,7 +114,7 @@ class ProductsController
                 // Actualizo el producto
                 $result = $this->model->updateProduct($id, $productData['name'], $productData['price'], $productData['description'], $productData['image_product']);
                 if($result)
-                header('Location: ' . BASE_URL . 'modificado');
+                header('Location: ' . BASE_URL . 'realizado');
             else
                 $this->error->showError('Error en la base de datos', 'controlarProductos');
             return;

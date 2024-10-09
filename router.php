@@ -126,7 +126,7 @@ switch ($params[0]) {
         $controller = new ProductsController($res);
         $controller->showProductForm($params[1]);
         break;
-    case 'modificado': 
+    case 'realizado': 
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
         $controletProduct = new SuccessControler($res);

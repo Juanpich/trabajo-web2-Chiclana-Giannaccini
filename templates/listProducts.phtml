@@ -5,7 +5,7 @@
             <?php foreach ($products as $product) { ?>
                <div>
                <li class="list-group-item d-flex justify-content-between align-items-center shadow-sm p-3 mb-3 rounded">
-                    <a href="itemCategoria/<?= $product->id ?>" class="product-link"> <?= $product->name ?> </a>
+                    <a class="btn btn-warning " href="itemCategoria/<?= $product->id ?>" class="product-link"> <?= $product->name ?> </a>
                 </li>
                 </div>
             <?php } ?>
