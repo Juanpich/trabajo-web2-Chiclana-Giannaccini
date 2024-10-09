@@ -3,11 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
-
--- Tiempo de generación: 07-10-2024 a las 03:32:43
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
-
+-- Tiempo de generación: 09-10-2024 a las 04:08:05
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -47,7 +45,6 @@ INSERT INTO `orders` (`id`, `id_product`, `cant_products`, `total`, `date`) VALU
 (6, 5, 3, 1500, '2024-09-12'),
 (7, 1, 1, 2000, '2024-09-30');
 
-
 -- --------------------------------------------------------
 
 --
@@ -71,7 +68,8 @@ INSERT INTO `product` (`id`, `name`, `price`, `description`, `image_product`) VA
 (2, 'Pizza mozzarella', 3000, 'Pizza con salsa de tomate y mucha mozzarella', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI2hdQeNVlyu20ReOpJcNwdgW0ER5hwxnauQ&amp;s'),
 (5, 'Papas', 500, 'Papas artesanalmente recolectadas, cortadas y fritas', NULL),
 (6, 'Picada', 6000, 'Salamin, quesos y aceitunas', NULL),
-(7, 'Limonada', 1000, 'Jugo fresco de limones exprimidos, genjibre y azucar', 'https://cdn0.celebritax.com/sites/default/files/styles/amp/public/recetas/limonada.jpg');
+(7, 'Limonada', 1000, 'Jugo fresco de limones exprimidos, genjibre y azucar.', 'https://cdn0.celebritax.com/sites/default/files/styles/amp/public/recetas/limonada.jpg'),
+(8, 'Coca Cola 1,25lt', 1200, 'Botella de coca cola de litro 25.', 'https://naranjomarket.com/wp-content/uploads/2020/06/CocaCola1.25.jpg');
 
 -- --------------------------------------------------------
 
@@ -83,8 +81,6 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `user_name` varchar(100) NOT NULL,
   `password` varchar(120) NOT NULL
-
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -92,10 +88,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `user_name`, `password`) VALUES
-
 (1, 'webadmin', '$2y$10$r8HJhVApm4gkltB2xy0tyu./QIdz3cSprUj/yk6K6MUsNn8TT7w/O');
-(2, 'juanpich', '$2y$10$WgfdVcd3ntADRG93D0Byduz5gRpdw7/QzPkdKG.GAbJqVqTXlMgUO');
-
 
 --
 -- Índices para tablas volcadas
@@ -118,9 +111,7 @@ ALTER TABLE `product`
 -- Indices de la tabla `user`
 --
 ALTER TABLE `user`
-
   ADD PRIMARY KEY (`id`);
-
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -130,14 +121,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
@@ -153,7 +143,7 @@ ALTER TABLE `user`
 -- Filtros para la tabla `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`);
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
