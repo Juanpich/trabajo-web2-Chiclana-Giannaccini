@@ -10,12 +10,12 @@ class OrdersControlers{
     private $view;
     private $model;
     private $error;
-    private $success;
+  
     public function __construct($res){
         $this->view = new OrdersView($res->user);
         $this->model = new OrdersModel();
         $this->error = new ErrorControler($res);
-        $this->success = new SuccessControler($res);
+        
     }
     public function showHome(){
         $orders = $this->model->getOrders();

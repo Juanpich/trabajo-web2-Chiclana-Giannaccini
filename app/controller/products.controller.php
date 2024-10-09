@@ -10,7 +10,7 @@ class ProductsController
     private $view;
     private $model;
     private $error;
-    private $success;
+   
     
 
     public function __construct($res)
@@ -18,7 +18,7 @@ class ProductsController
         $this->view = new ProductsView($res->user);
         $this->model = new ProductsModel();
         $this->error = new ErrorControler($res);
-        $this->success = new SuccessControler($res);
+       
     }
 
     public function showCategories()

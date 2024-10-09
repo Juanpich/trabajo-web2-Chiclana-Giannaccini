@@ -6,7 +6,7 @@ Descripcion:
 Elegimos realizar una pagina de pedidos en un local de comidas rapidas. Va a constar inicialmente de dos tablas: una llamada product, la cual contiene un id de tipo primary, auto incremental; un name, de tipo varchar; un price y una description del producto.
 Y una segunda tabla llamada orders, que se relaciona con la tabla producto a traves de su clave foranea id_product. Tambien cuenta con su id de tipo primary auto incremental; una cant_products; un total, que va a definir el total a pagar y una date, de tipo date. 
 
-Pautas para el despliegue de la web:
+#Pautas para el despliegue de la web:
 -Tener instalado xampp y encendido Apache y MySQL.
 -Clonar el repositorio en la carpeta xampp/htdocs.
 - Crear la base de datos con el nombre pedidos_today (las tablas se crean automaticamente por la implementacion del auto Deploy), o se puede importar la base de datos completa desde phpMyAdmin, el archivo llamado pedidos_today.sql 
