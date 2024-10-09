@@ -15,7 +15,7 @@ class ProductsView{
         require_once './templates/viewItems.phtml';
     }
 
-    public function seeABMProducts($products,$result, $success)
+    public function seeABMProducts($products)
     {
         require_once './templates/CRUDproduct.phtml';
     }

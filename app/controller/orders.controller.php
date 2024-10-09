@@ -5,14 +5,17 @@ require_once './app/view/orders.view.php';
 require_once './app/model/abstract.model.php';
 require_once './app/model/products.model.php';
 require_once './app/controller/error.controller.php';
+require_once './app/controller/success.controller.php';
 class OrdersControlers{
     private $view;
     private $model;
     private $error;
+    private $success;
     public function __construct($res){
         $this->view = new OrdersView($res->user);
         $this->model = new OrdersModel();
         $this->error = new ErrorControler($res);
+        $this->success = new SuccessControler($res);
     }
     public function showHome(){
         $orders = $this->model->getOrders();
@@ -36,15 +39,17 @@ class OrdersControlers{
             $this->error->showError($error,$redir);
         }
     }
-    public function OrdersABM($result = null, $success = ''){
+    public function OrdersABM(){
         $ordens = $this->model->getOrders();
-        $this->view->seeABMOrders($ordens,$result, $success);
+        $this->view->seeABMOrders($ordens);
     }
     public function deleteOrder($id){
         if($this->model->checkIDExists($id)){
             $result = $this->model->eraseOrder($id);
-            $success = "Tarea eliminada";
-            $this->OrdersABM($result, $success);
+            if($result)
+                header('Location: ' . BASE_URL . 'modificado');
+            else
+                $this->error->showError('Error en la base de datos', 'controlarOrdenes');
             return;
 
         }else{
@@ -104,8 +109,10 @@ class OrdersControlers{
             $data = $this->checkFormData();
             if($data != null){
                 $result = $this->model->updateOrder($id, $data);
-                $success = "Tarea Modificada";
-                $this->OrdersABM($result, $success);
+                if($result)
+                    header('Location: ' . BASE_URL . 'modificado');
+                else
+                    $this->error->showError('Error en la base de datos', 'controlarOrdenes');
                 return;
             }
         }
@@ -121,8 +128,11 @@ class OrdersControlers{
         }else{
             $result = null;
         }
-        $success = "Tarea Creada";
-        $this->OrdersABM($result, $success);
+        if($result)
+            header('Location: ' . BASE_URL . 'modificado');
+        else
+            $this->error->showError('Error en la base de datos', 'controlarOrdenes');
+                
         return;
     }
     

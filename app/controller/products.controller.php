@@ -3,18 +3,22 @@ require_once './app/model/products.model.php';
 require_once './app/model/abstract.model.php';
 require_once './app/view/products.view.php';
 require_once './app/controller/error.controller.php';
+require_once './app/controller/success.controller.php';
 
 class ProductsController
 {
     private $view;
     private $model;
     private $error;
+    private $success;
+    
 
     public function __construct($res)
     {
         $this->view = new ProductsView($res->user);
         $this->model = new ProductsModel();
         $this->error = new ErrorControler($res);
+        $this->success = new SuccessControler($res);
     }
 
     public function showCategories()
@@ -62,9 +66,11 @@ class ProductsController
                 $this->error->showError($error, $redir);
             } else {
                 $result = $this->model->insertProduct($productData['name'], $productData['price'], $productData['description'], $productData['image_product']);
-                $success = "Tarea Creada";
-                $this->productsABM($result, $success);
-                return;
+                if($result)
+                header('Location: ' . BASE_URL . 'modificado');
+            else
+                $this->error->showError('Error en la base de datos', 'controlarProductos');
+            return;
             }
         } else {
             $this->view->addProduct();
@@ -75,9 +81,11 @@ class ProductsController
     {
         if($this->model->checkIDExists($id)){
             $result = $this->model->eraseProduct($id);
-            $success = "Tarea eliminada";
-            $this->productsABM($result, $success);
-            return;
+            if($result)
+            header('Location: ' . BASE_URL . 'modificado');
+        else
+            $this->error->showError('Error en la base de datos', 'controlarProductos');
+        return;
         } else {
             $error = "No existe el producto con el id=$id";
             $redir = "controlarProductos";
@@ -105,8 +113,11 @@ class ProductsController
             } else {
                 // Actualizo el producto
                 $result = $this->model->updateProduct($id, $productData['name'], $productData['price'], $productData['description'], $productData['image_product']);
-                $success = "Tarea Modificada";
-                $this->productsABM($result, $success);
+                if($result)
+                header('Location: ' . BASE_URL . 'modificado');
+            else
+                $this->error->showError('Error en la base de datos', 'controlarProductos');
+            return;
             }
         }
     }

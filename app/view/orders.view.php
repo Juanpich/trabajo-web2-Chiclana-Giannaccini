@@ -14,7 +14,7 @@ class OrdersView{
         require_once './templates/viewOrder.phtml';
     }
 
-    public function seeABMOrders($ordens,$result, $success){
+    public function seeABMOrders($ordens){
         require_once './templates/CRUDorder.phtml';
         
     }

@@ -126,6 +126,12 @@ switch ($params[0]) {
         $controller = new ProductsController($res);
         $controller->showProductForm($params[1]);
         break;
+    case 'modificado': 
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
+        $controletProduct = new SuccessControler($res);
+        $controletProduct->showSuccess();
+        break; 
     default:
         $error = "404 page not found";
         $redir = "home";
