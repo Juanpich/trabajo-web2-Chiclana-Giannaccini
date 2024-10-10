@@ -19,7 +19,7 @@ class OrdersView{
         
     }
     public function seeForm($order, $products){
-        require_once './templates/formCRUDorder.phtml';
+        require_once './templates/forms/formCRUDorder.phtml';
 
     }
 }

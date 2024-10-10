@@ -22,12 +22,12 @@ class ProductsView{
 
     public function addProduct()
     {
-        require_once './templates/formCRUDproduct.phtml';
+        require_once './templates/forms/formCRUDproduct.phtml';
     }
 
     public function showProductForm($product = null, $isEdit = false)
     {
-        require_once './templates/formCRUDproduct.phtml';
+        require_once './templates/forms/formCRUDproduct.phtml';
     }
 
 }
