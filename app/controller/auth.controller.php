@@ -33,7 +33,7 @@ class AuthController {
             $_SESSION['NAME_USER'] = $userFromDB->user_name;
             header('Location: ' . BASE_URL);
         } else {
-            return $this->view->showLogin('La clave o contraseña no cionciden');
+            return $this->view->showLogin('El usuario y/o contraseña no coinciden');
         }
     }
 
